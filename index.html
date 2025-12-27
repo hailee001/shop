@@ -2,18 +2,18 @@
 <html lang="vi" class="dark">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>T.Hai Store v15 - Premium Edition</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>T.HAI STORE v15 - Premium Edition</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <link rel="stylesheet" href="style.css">
     <style>
-        /* CSS Quan trọng cho Hiệu ứng [cite: 7, 10, 15] */
+        /* Khôi phục các CSS quan trọng từ bản v15 [cite: 6, 7, 8, 9, 10] */
         .page-section { display: none; }
         .page-active { display: block; animation: slideUp 0.4s ease-out forwards; }
         @keyframes slideUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
 
-        /* Sửa lỗi thanh chạy ngang (Marquee) bao phủ toàn màn hình */
+        /* Sửa lỗi thanh chạy ngang (Marquee) - Chạy toàn màn hình và nhanh hơn */
         .marquee-container {
             width: 100%;
             overflow: hidden;
@@ -24,14 +24,14 @@
         }
         .marquee-content {
             display: inline-flex;
-            animation: marquee 20s linear infinite; /* Tốc độ mượt mà */
+            animation: marquee 20s linear infinite;
         }
         @keyframes marquee {
             0% { transform: translateX(0); }
             100% { transform: translateX(-50%); }
         }
 
-        /* Chữ ánh kim [cite: 41] */
+        /* Hiệu ứng chữ ánh kim cho tiêu đề */
         .shine-text {
             background: linear-gradient(90deg, #fff, #fbbf24, #fff);
             background-size: 200% auto;
@@ -41,17 +41,20 @@
             animation: shine 3s linear infinite;
         }
         @keyframes shine { to { background-position: 200% center; } }
+        
+        /* Đảm bảo tuyết rơi và pháo hoa không đè lên nút [cite: 11, 14] */
+        .snowflake, .firework { pointer-events: none; }
     </style>
 </head>
-<body class="bg-slate-900 text-slate-100 font-sans">
+<body class="bg-slate-900 text-slate-100 font-sans overflow-x-hidden">
 
-    <div class="marquee-container relative z-[110]">
+    <div class="marquee-container sticky top-0 z-[110]">
         <div id="marquee-dynamic" class="marquee-content font-black text-[10px] uppercase tracking-widest">
             </div>
     </div>
 
     <div id="auth-overlay" class="fixed inset-0 bg-slate-950 z-[120] flex items-center justify-center p-4">
-        <div class="bg-slate-800 p-10 rounded-[40px] shadow-2xl w-full max-w-md border border-slate-700">
+        <div class="bg-slate-800 p-8 md:p-10 rounded-[40px] shadow-2xl w-full max-w-md border border-slate-700">
             <h1 class="text-4xl font-black text-indigo-500 mb-8 text-center italic">T.HAI STORE</h1>
             
             <div id="login-form">
@@ -61,25 +64,27 @@
                 <p class="mt-6 text-center text-sm opacity-70">Chưa có tài khoản? <a href="javascript:void(0)" onclick="toggleAuth(false)" class="text-indigo-400 font-bold underline">Đăng ký ngay</a></p>
             </div>
 
-            <div id="register-form" class="hidden text-center">
+            <div id="register-form" class="hidden">
                 <input type="text" id="reg-username" placeholder="Tên tài khoản mới" class="w-full p-4 mb-4 rounded-2xl bg-slate-700 outline-none font-bold border border-emerald-500/30 focus:border-emerald-500">
-                <input type="password" id="reg-password" placeholder="Mật khẩu mới" class="w-full p-4 mb-4 rounded-2xl bg-slate-700 outline-none font-bold border border-emerald-500/30 focus:border-emerald-500">
-                <input type="password" id="reg-repassword" placeholder="Xác nhận mật khẩu" class="w-full p-4 mb-6 rounded-2xl bg-slate-700 outline-none font-bold border border-emerald-500/30 focus:border-emerald-500">
+                <input type="password" id="reg-password" placeholder="Mật khẩu" class="w-full p-4 mb-4 rounded-2xl bg-slate-700 outline-none font-bold">
+                <input type="password" id="reg-repassword" placeholder="Nhập lại mật khẩu" class="w-full p-4 mb-6 rounded-2xl bg-slate-700 outline-none font-bold">
                 <button onclick="handleRegister()" class="w-full bg-emerald-600 text-white font-black py-4 rounded-2xl shadow-lg">TẠO TÀI KHOẢN</button>
-                <p class="mt-6 text-center text-sm opacity-70">Đã có tài khoản? <a href="javascript:void(0)" onclick="toggleAuth(true)" class="text-indigo-400 font-bold underline">Quay lại</a></p>
+                <p class="mt-6 text-center text-sm opacity-70">Đã có tài khoản? <a href="javascript:void(0)" onclick="toggleAuth(true)" class="text-indigo-400 font-bold underline">Quay lại đăng nhập</a></p>
             </div>
         </div>
     </div>
 
-    <nav class="sticky top-0 z-50 h-20 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800 px-6">
+    <nav class="sticky top-[40px] z-50 h-16 md:h-20 bg-slate-900/80 backdrop-blur-xl border-b border-slate-800 px-6">
         <div class="max-w-7xl mx-auto h-full flex justify-between items-center">
             <div class="text-2xl font-black text-indigo-500 italic cursor-pointer" onclick="navigateTo('home')">T.HAI</div>
+            
             <div class="hidden md:flex gap-8 text-[10px] font-black uppercase tracking-widest">
                 <button onclick="navigateTo('home')">Cửa hàng</button>
                 <button onclick="toggleLeaderboard()" class="text-amber-400">BXH Đại Gia</button>
                 <button onclick="navigateTo('recharge')" class="text-emerald-400">Nạp tiền</button>
                 <button onclick="navigateTo('history')">Kho hàng</button>
             </div>
+
             <div class="flex items-center gap-4 text-right">
                 <div>
                     <div id="balance-val" class="text-indigo-500 font-black">0đ</div>
@@ -91,7 +96,7 @@
     </nav>
 
     <main class="max-w-7xl mx-auto p-6 pb-32">
-        <div id="leaderboard-box" class="hidden mb-8 p-8 bg-slate-800 rounded-[40px] border border-slate-700 animate-slideUp">
+        <div id="leaderboard-box" class="hidden mb-8 p-8 bg-slate-800 rounded-[40px] border border-slate-700 shadow-xl">
             <h3 class="text-center font-black text-amber-500 uppercase mb-6 shine-text"><i class="fas fa-trophy mr-2"></i> Bảng Xếp Hạng Nạp Thẻ</h3>
             <div id="leaderboard-list" class="grid gap-3"></div>
         </div>
@@ -99,24 +104,24 @@
         <div id="page-home" class="page-section page-active">
             <div class="mb-8 p-8 bg-gradient-to-br from-indigo-600 to-indigo-900 rounded-[40px] flex justify-between items-center shadow-2xl relative overflow-hidden">
                 <div class="z-10">
-                    <h2 class="text-2xl font-black italic">Chào mừng, <span id="hello-user" class="text-amber-400">...</span></h2>
-                    <p class="text-xs opacity-70 font-bold uppercase">Hạng hiện tại: <span id="rank-name-text">...</span></p>
+                    <h2 class="text-2xl font-black italic">Chào, <span id="hello-user" class="text-amber-400">...</span></h2>
+                    <p class="text-xs opacity-70 font-bold uppercase">Bậc: <span id="rank-name-text">...</span></p>
                 </div>
                 <div id="rank-icon-big" class="text-6xl z-10"></div>
             </div>
-            <div id="product-list" class="grid grid-cols-2 md:grid-cols-4 gap-6"></div>
+            <div id="product-list" class="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6"></div>
         </div>
 
         <div id="page-recharge" class="page-section">
             <div class="grid md:grid-cols-2 gap-10">
                 <div class="bg-slate-800 p-8 rounded-[40px] border border-slate-700">
-                    <h3 class="font-black uppercase italic mb-6">Nạp tiền nhanh</h3>
+                    <h3 class="font-black uppercase italic mb-6">Nạp tiền qua Bank</h3>
                     <div class="p-6 bg-slate-900 rounded-3xl mb-6 text-center border border-indigo-500/30">
                         <p class="text-[9px] font-black opacity-40 mb-1 uppercase">Nội dung chuyển khoản</p>
                         <code id="ck-content" class="text-2xl font-black text-indigo-400">...</code>
                     </div>
-                    <input type="number" id="nap-amount" placeholder="Số tiền nạp..." class="w-full p-4 rounded-2xl bg-slate-700 mb-4 font-bold outline-none border border-transparent focus:border-emerald-500">
-                    <button onclick="sendRecharge()" class="w-full bg-emerald-600 text-white font-black py-4 rounded-2xl shadow-lg">GỬI YÊU CẦU</button>
+                    <input type="number" id="nap-amount" placeholder="Số tiền nạp (tối thiểu 10k)..." class="w-full p-4 rounded-2xl bg-slate-700 mb-4 font-bold outline-none border border-transparent focus:border-emerald-500">
+                    <button onclick="sendRecharge()" class="w-full bg-emerald-600 text-white font-black py-4 rounded-2xl shadow-lg active:scale-95 transition-transform">GỬI YÊU CẦU</button>
                     <div id="recharge-history" class="mt-8 space-y-2"></div>
                 </div>
                 <div class="bg-slate-800 p-8 rounded-[40px] border border-slate-700 text-center">
@@ -128,7 +133,7 @@
         </div>
 
         <div id="page-history" class="page-section">
-            <h2 class="text-xl font-black mb-6 uppercase border-l-4 border-indigo-500 pl-3">Kho hàng của bạn</h2>
+            <h2 class="text-xl font-black mb-6 uppercase border-l-4 border-indigo-500 pl-3">Sản phẩm đã mua</h2>
             <div id="order-history-list" class="grid gap-4"></div>
         </div>
     </main>
@@ -138,7 +143,7 @@
             <div class="text-[10px] font-black text-amber-400 uppercase shine-text mb-2">Lucky Spin</div>
             <div class="text-3xl mb-3">🎡</div>
             <div class="text-[9px] opacity-60 mb-3 italic">10k/Lượt (Tỉ lệ thắng 2%)</div>
-            <button onclick="playLuckySpin()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-[10px] font-black py-2 rounded-xl transition-all active:scale-95">QUAY NGAY</button>
+            <button onclick="playLuckySpin()" class="w-full bg-indigo-600 hover:bg-indigo-500 text-[10px] font-black py-2 rounded-xl active:scale-95 transition-all">QUAY NGAY</button>
             <div id="spin-history-list" class="mt-4 text-[8px] text-left space-y-1 max-h-20 overflow-y-auto font-mono text-indigo-300"></div>
         </div>
     </div>
@@ -146,49 +151,49 @@
     <script src="ranks.js"></script>
     <script src="script.js"></script>
     <script>
-        // Logic điều khiển giao diện
+        // Điều khiển Form Đăng nhập/Đăng ký
         function toggleAuth(isLogin) {
             document.getElementById('login-form').classList.toggle('hidden', !isLogin);
             document.getElementById('register-form').classList.toggle('hidden', isLogin);
         }
 
-        // Tạo dữ liệu cho thanh thông báo chạy ngang
+        // Tạo dữ liệu ảo cho thanh thông báo (Marquee)
         function renderMarquee() {
-            const users = ["tuấn***", "hải***", "linh***", "đạt***", "nhi***", "hoàng***"];
-            const items = ["vừa nạp 50k", "vừa mua Netflix", "vừa nạp 200k", "vừa trúng 50k từ Spin"];
+            const users = ["tuấn***", "hải***", "linh***", "đạt***", "nhi***", "hoàng***", "phúc***", "trâm***"];
+            const actions = ["vừa nạp 50,000đ", "vừa mua Netflix Premium", "vừa trúng 50k từ Vòng Quay", "vừa mua Locket Gold"];
             let html = "";
             for(let i=0; i<15; i++) {
-                const u = users[Math.floor(Math.random()*users.length)];
-                const it = items[Math.floor(Math.random()*items.length)];
-                html += `<span class="mx-12 flex items-center"><i class="fas fa-bolt text-yellow-400 mr-2"></i> ${u} ${it}</span>`;
+                const u = users[Math.floor(Math.random() * users.length)];
+                const a = actions[Math.floor(Math.random() * actions.length)];
+                html += `<span class="mx-12 flex items-center"><i class="fas fa-bolt text-yellow-400 mr-2"></i> ${u} ${a}</span>`;
             }
             document.getElementById('marquee-dynamic').innerHTML = html + html;
         }
         renderMarquee();
 
-        // Tự động kiểm tra để ẩn Login khi đã đăng nhập [cite: 61]
+        // Tự động kiểm tra Auth từ localStorage [cite: 58, 60, 61]
         window.addEventListener('load', () => {
             setInterval(() => {
                 if (typeof currentUser !== 'undefined' && currentUser !== null) {
-                    document.getElementById('main-app').classList.remove('hidden');
+                    document.getElementById('main-app')?.classList.remove('hidden');
                     document.getElementById('auth-overlay').style.display = 'none';
                 }
             }, 500);
         });
 
-        // Hàm hỗ trợ đăng ký (Lưu pass mã hóa cơ bản)
+        // Hàm hỗ trợ đăng ký người dùng mới 
         function handleRegister() {
             const u = document.getElementById('reg-username').value.trim().toLowerCase();
             const p = document.getElementById('reg-password').value;
             const rp = document.getElementById('reg-repassword').value;
 
-            if(!u || !p) return alert("Nhập đủ thông tin!");
-            if(p !== rp) return alert("Mật khẩu không khớp!");
-            if(localStorage.getItem(`user_${u}`)) return alert("Tài khoản đã tồn tại!");
+            if(!u || !p) return alert("Vui lòng điền đủ thông tin!");
+            if(p !== rp) return alert("Mật khẩu xác nhận không khớp!");
+            if(localStorage.getItem(`user_${u}`)) return alert("Tên tài khoản này đã tồn tại!");
 
-            const data = { pass: p, balance: 0, totalNap: 0 };
-            localStorage.setItem(`user_${u}`, JSON.stringify(data));
-            alert("Đăng ký thành công! Hãy đăng nhập.");
+            const userData = { pass: p, balance: 0, totalNap: 0 };
+            localStorage.setItem(`user_${u}`, JSON.stringify(userData));
+            alert("Đăng ký thành công! Bạn có thể đăng nhập ngay.");
             toggleAuth(true);
         }
     </script>
