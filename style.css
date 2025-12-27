@@ -1,0 +1,66 @@
+/* Giao diện trang */
+.page-section { display: none; }
+.page-active { display: block; animation: slideUp 0.4s ease-out forwards; }
+
+@keyframes slideUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Hiệu ứng Tuyết rơi */
+.snowflake {
+    position: fixed; top: -10px; z-index: 9999;
+    color: #fff; pointer-events: none; animation: fall linear infinite;
+}
+@keyframes fall { to { transform: translateY(105vh); } }
+
+/* Hiệu ứng Pháo hoa */
+.firework {
+    position: fixed; width: 6px; height: 6px; border-radius: 50%;
+    z-index: 10000; pointer-events: none; animation: explode 1s ease-out forwards;
+}
+@keyframes explode {
+    0% { transform: scale(1); opacity: 1; }
+    100% { transform: scale(35); opacity: 0; box-shadow: 0 0 40px 10px currentColor; }
+}
+
+/* Rank Colors */
+.rank-dong { color: #fb923c; } /* Orange */
+.rank-bac { color: #cbd5e1; } /* Slate */
+.rank-vang { color: #fbbf24; } /* Amber */
+.rank-kimcuong { color: #22d3ee; } /* Cyan */
+.rank-tinhanh { color: #a855f7; } /* Purple */
+/* Thanh cuộn chuyên nghiệp */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-thumb { background: #6366f1; border-radius: 10px; }
+.user-header {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 15px;
+}
+.user-actions button {
+    margin: 5px;
+    padding: 10px;
+    cursor: pointer;
+}
+.history-item {
+    background: #222;
+    padding: 8px;
+    margin-bottom: 5px;
+    border-left: 3px solid #00ff00;
+    font-size: 14px;
+}
+.animate-marquee span {
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
+    background: linear-gradient(90deg, #fff, #ffd700, #fff);
+    -webkit-background-clip: text;
+    background-clip: text;
+    color: transparent;
+    background-size: 200% auto;
+    animation: shine-text 3s linear infinite;
+}
+
+@keyframes shine-text {
+    to { background-position: 200% center; }
+}
